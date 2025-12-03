@@ -1,0 +1,24 @@
+spring.application.name: spring_advance
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+logging:
+  level:
+    root: INFO
+    com.spring_security_project.service: DEBUG
+jwt:
+  secret:
+    key: ${JWT_SECRET_KEY}
