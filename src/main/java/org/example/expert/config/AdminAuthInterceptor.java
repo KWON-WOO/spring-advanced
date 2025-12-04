@@ -10,6 +10,8 @@ import org.example.expert.domain.user.service.UserService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -20,7 +22,7 @@ public class AdminAuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String url = request.getRequestURL().toString();
-        log.info("접근 URL : {}\tTime : {}",url, System.currentTimeMillis());
+        log.info("접근 URL : {}\tTime : {}",url, LocalDateTime.now());
         return true;
     }
 }
