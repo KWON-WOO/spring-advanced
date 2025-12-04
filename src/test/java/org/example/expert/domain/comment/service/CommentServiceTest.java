@@ -1,11 +1,11 @@
 package org.example.expert.domain.comment.service;
 
+import org.example.expert.config.CustomException;
 import org.example.expert.domain.comment.dto.request.CommentSaveRequest;
-import org.example.expert.domain.comment.dto.response.CommentSaveResponse;
+import org.example.expert.domain.comment.dto.response.CommentResponse;
 import org.example.expert.domain.comment.entity.Comment;
 import org.example.expert.domain.comment.repository.CommentRepository;
 import org.example.expert.domain.common.dto.AuthUser;
-import org.example.expert.domain.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.entity.Todo;
 import org.example.expert.domain.todo.repository.TodoRepository;
 import org.example.expert.domain.user.entity.User;
@@ -43,7 +43,7 @@ class CommentServiceTest {
         given(todoRepository.findById(anyLong())).willReturn(Optional.empty());
 
         // when
-        InvalidRequestException exception = assertThrows(InvalidRequestException.class, () -> {
+        CustomException exception = assertThrows(CustomException.class, () -> {
             commentService.saveComment(authUser, todoId, request);
         });
 
@@ -65,7 +65,7 @@ class CommentServiceTest {
         given(commentRepository.save(any())).willReturn(comment);
 
         // when
-        CommentSaveResponse result = commentService.saveComment(authUser, todoId, request);
+        CommentResponse result = commentService.saveComment(authUser, todoId, request);
 
         // then
         assertNotNull(result);

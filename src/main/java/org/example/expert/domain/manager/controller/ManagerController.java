@@ -8,7 +8,6 @@ import org.example.expert.domain.common.annotation.Auth;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.manager.dto.request.ManagerSaveRequest;
 import org.example.expert.domain.manager.dto.response.ManagerResponse;
-import org.example.expert.domain.manager.dto.response.ManagerSaveResponse;
 import org.example.expert.domain.manager.service.ManagerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,7 @@ public class ManagerController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/todos/{todoId}/managers")
-    public ResponseEntity<ManagerSaveResponse> saveManager(
+    public ResponseEntity<ManagerResponse> saveManager(
             @Auth AuthUser authUser,
             @PathVariable long todoId,
             @Valid @RequestBody ManagerSaveRequest managerSaveRequest
