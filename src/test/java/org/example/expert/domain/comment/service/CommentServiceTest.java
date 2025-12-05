@@ -1,6 +1,5 @@
 package org.example.expert.domain.comment.service;
 
-import org.aspectj.util.Reflection;
 import org.example.expert.config.CustomException;
 import org.example.expert.domain.comment.dto.request.CommentSaveRequest;
 import org.example.expert.domain.comment.dto.response.CommentResponse;
@@ -19,7 +18,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
