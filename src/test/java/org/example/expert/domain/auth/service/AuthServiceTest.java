@@ -98,4 +98,12 @@ class AuthServiceTest {
         });
         assertEquals("잘못된 비밀번호입니다.", exception.getMessage());
     }
+
+    @Test
+    void signup() {
+    }
+
+    @Test
+    void signin() {
+    }
 }

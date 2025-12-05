@@ -1,6 +1,7 @@
 package org.example.expert.domain.manager.service;
 
 import org.example.expert.config.CustomException;
+import org.example.expert.config.ExceptionEnum;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.manager.dto.request.ManagerSaveRequest;
 import org.example.expert.domain.manager.dto.response.ManagerResponse;
@@ -24,6 +25,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ManagerServiceTest {
@@ -64,7 +66,7 @@ class ManagerServiceTest {
 
         // when & then
         CustomException exception = assertThrows(CustomException.class, () ->
-            managerService.saveManager(authUser, todoId, managerSaveRequest)
+                managerService.saveManager(authUser, todoId, managerSaveRequest)
         );
 
         assertEquals("일정을 생성한 유저만 담당자를 지정할 수 있습니다.", exception.getMessage());
@@ -93,7 +95,8 @@ class ManagerServiceTest {
         assertEquals(mockManager.getUser().getEmail(), managerResponses.get(0).getUser().getEmail());
     }
 
-    @Test // 테스트코드 샘플
+    @Test
+        // 테스트코드 샘플
     void todo가_정상적으로_등록된다() {
         // given
         AuthUser authUser = new AuthUser(1L, "a@a.com", UserRole.USER);
@@ -119,5 +122,18 @@ class ManagerServiceTest {
         assertNotNull(response);
         assertEquals(managerUser.getId(), response.getUser().getId());
         assertEquals(managerUser.getEmail(), response.getUser().getEmail());
+    }
+
+    @Test
+    void deleteManage_유저가_존재하지_않을_때() {
+        Long userId = 100L;
+        Long todoId = 10L;
+        Long managerId = 1L;
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+        CustomException exception = assertThrows(CustomException.class, () -> {
+            managerService.deleteManager(userId, todoId, managerId);
+        });
+        assertEquals(ExceptionEnum.NOT_FOUND_USER.getMessage(), exception.getMessage());
+
     }
 }
